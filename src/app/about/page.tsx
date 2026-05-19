@@ -36,7 +36,7 @@ export default function About() {
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           className="heading-luxury text-4xl md:text-6xl mb-4 uppercase"
         >
           THE OUTLAW ETHOS
@@ -44,7 +44,7 @@ export default function About() {
         <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
           className="text-gray-400 text-sm tracking-widest uppercase"
         >
           Redefining modern streetwear

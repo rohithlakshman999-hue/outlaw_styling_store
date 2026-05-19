@@ -56,7 +56,7 @@ export default function Home() {
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden pointer-events-none opacity-20"
         >
           <h1 className="text-[15vw] font-black tracking-tighter text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.8)" }}>
@@ -70,7 +70,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
             className="absolute inset-0 z-0 mix-blend-overlay"
           >
             <Image
@@ -88,7 +88,7 @@ export default function Home() {
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
           className="absolute inset-0 flex items-center justify-center z-10 overflow-hidden pointer-events-none"
         >
           <h1 className="text-[15vw] font-black tracking-tighter text-outline opacity-40">
@@ -103,7 +103,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.4 }}
               className="text-[var(--accent-3)] uppercase tracking-[0.4em] text-sm md:text-base mb-4 font-bold drop-shadow-md"
             >
               {heroSlides[currentSlide].subtitle}
@@ -115,7 +115,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               className="heading-luxury text-4xl md:text-6xl text-white mb-10 whitespace-pre-line drop-shadow-2xl"
             >
               {heroSlides[currentSlide].title}
@@ -124,7 +124,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
           >
             <Link
               href="/shop"
@@ -161,7 +161,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.4 }}
           className="container mx-auto px-4 md:px-8 max-w-4xl text-center"
         >
           <p className="text-xl md:text-4xl text-gray-300 leading-relaxed font-light">
@@ -220,7 +220,7 @@ export default function Home() {
                   src={collection.image}
                   alt={collection.name}
                   fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-70 group-hover:opacity-100"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105 opacity-70 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-8 w-full">

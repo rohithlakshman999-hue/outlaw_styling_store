@@ -28,7 +28,7 @@ export default function Collections() {
                   alt={collection.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 66vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105 opacity-80"
                 />
               </div>
               <div className="w-full md:w-1/3 flex flex-col justify-center px-4 md:px-12 text-center md:text-left">
