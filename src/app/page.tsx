@@ -1,256 +1,305 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Flame, ShieldCheck, Zap, Award, Truck } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import { products, collections } from "@/data/products";
+import { products } from "@/data/products";
 import Image from "next/image";
 
-const heroSlides = [
-  {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1542272201-b1ca555f8505?auto=format&fit=crop&q=80&w=2000",
-    title: "REDEFINE\nYOUR STYLE",
-    subtitle: "Export Surplus Apparel"
-  },
-  {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=2000",
-    title: "MODERN\nESSENTIALS",
-    subtitle: "Minimalist Daily Wear"
-  },
-  {
-    id: 3,
-    image: "https://images.unsplash.com/photo-1550614000-4b95d415d8eb?auto=format&fit=crop&q=80&w=2000",
-    title: "STREET\nCULTURE",
-    subtitle: "Premium Oversized Fits"
-  }
-];
-
 export default function Home() {
-  const featuredProducts = products.slice(0, 4);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // Grab the 6 key trending products as shown in the mockup
+  const trendingProducts = products.slice(0, 6);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  // Define category cards in the exact requested order: Watches, Shoes, Clothes, Accessories
+  const categoryCards = [
+    {
+      name: "Watches",
+      subtext: "TIMELESS PRECISION",
+      image: "/images/chrono_watch.png",
+      href: "/shop?category=Watches",
+    },
+    {
+      name: "Shoes",
+      subtext: "FOOTWEAR LEGENDS",
+      image: "/images/nike_air_force.png",
+      href: "/shop?category=Shoes",
+    },
+    {
+      name: "Clothes",
+      subtext: "STREETWEAR APPAREL",
+      image: "/images/black_hoodie.png",
+      href: "/shop?category=Clothes",
+    },
+    {
+      name: "Accessories",
+      subtext: "OUTLAW STYLING",
+      image: "/images/baseball_cap.png",
+      href: "/shop?category=Accessories",
+    },
+  ];
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-black text-white overflow-hidden">
+      
       {/* Hero Section */}
-      <section className="relative h-[85vh] min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-black">
-        {/* Ambient Glowing Blobs */}
-        <div className="ambient-blob w-96 h-96 bg-[var(--accent-1)] top-[-10%] left-[-10%]" />
-        <div className="ambient-blob w-96 h-96 bg-[var(--accent-2)] bottom-[-10%] right-[-10%] animation-delay-2000" />
-        <div className="ambient-blob w-64 h-64 bg-[var(--accent-3)] top-[40%] left-[60%] animation-delay-4000" />
-
-        {/* Giant Overlapping Text (Background) */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden pointer-events-none opacity-20"
-        >
-          <h1 className="text-[15vw] font-black tracking-tighter text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.8)" }}>
-            OUTLAW
-          </h1>
-        </motion.div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="absolute inset-0 z-0 mix-blend-overlay"
-          >
-            <Image
-              src={heroSlides[currentSlide].image}
-              alt="Hero Background"
-              fill
-              priority
-              className="object-cover opacity-80"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-          </motion.div>
-        </AnimatePresence>
+      <section className="relative min-h-[90vh] lg:h-[95vh] w-full flex flex-col lg:flex-row items-center justify-between overflow-hidden bg-black px-4 md:px-8 py-12 lg:py-0 border-b border-white/5">
         
-        {/* Giant Overlapping Text (Foreground) */}
+        {/* Glow Blobs */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[600px] h-[350px] md:h-[600px] bg-[rgba(207,242,39,0.08)] rounded-full filter blur-[80px] md:blur-[120px] pointer-events-none z-0" />
+
+        {/* LEFT PROFILE: Dhoni Banner */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="absolute inset-0 flex items-center justify-center z-10 overflow-hidden pointer-events-none"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative w-full lg:w-[30%] h-[400px] lg:h-full flex flex-col justify-end pb-8 lg:pb-16 z-10 order-2 lg:order-1 mt-8 lg:mt-0"
         >
-          <h1 className="text-[15vw] font-black tracking-tighter text-outline opacity-40">
-            OUTLAW
-          </h1>
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/dhoni_hero.jpg"
+              alt="MS Dhoni Outlaw Banner"
+              fill
+              className="object-cover object-top opacity-50 grayscale hover:grayscale-0 hover:opacity-75 transition-all duration-700 rounded-2xl lg:rounded-none"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-black hidden lg:block" />
+          </div>
+          
+          <div className="relative z-10 px-4 md:px-6">
+            <h3 className="font-serif text-4xl xl:text-5xl text-[var(--accent-1)] tracking-widest skew-x-[-10deg] uppercase drop-shadow-lg">
+              DHONI
+            </h3>
+            <p className="text-[10px] md:text-xs tracking-[0.3em] text-zinc-400 font-extrabold mt-1">
+              CALM. FOCUSED. LEGENDARY.
+            </p>
+          </div>
         </motion.div>
 
-        <div className="relative z-20 container mx-auto px-4 md:px-8 text-center flex flex-col items-center mt-[15vh]">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={`subtitle-${currentSlide}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="text-[var(--accent-3)] uppercase tracking-[0.4em] text-sm md:text-base mb-4 font-bold drop-shadow-md"
-            >
-              {heroSlides[currentSlide].subtitle}
-            </motion.p>
-          </AnimatePresence>
-          <AnimatePresence mode="wait">
-            <motion.h2
-              key={`title-${currentSlide}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="heading-luxury text-4xl md:text-6xl text-white mb-10 whitespace-pre-line drop-shadow-2xl"
-            >
-              {heroSlides[currentSlide].title}
-            </motion.h2>
-          </AnimatePresence>
+        {/* CENTER COLUMN: Hero Copy & Revolve Circle */}
+        <div className="relative w-full lg:w-[40%] h-full flex flex-col items-center justify-center text-center z-20 order-1 lg:order-2 px-2 py-8 lg:py-0">
+          
+          {/* Circular Glowing SVG Arc revolving in background */}
+          <div className="absolute w-[280px] sm:w-[350px] md:w-[480px] h-[280px] sm:h-[350px] md:h-[480px] pointer-events-none z-0">
+            <svg className="w-full h-full circle-revolve text-[var(--accent-1)]/10" viewBox="0 0 100 100">
+              <circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeDasharray="4 8"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="42"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.5"
+                strokeDasharray="40 10"
+                className="opacity-50"
+              />
+            </svg>
+          </div>
+
+          {/* Heading Text */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex flex-col items-center justify-center font-sans tracking-tighter"
+          >
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7.5xl font-black leading-[0.9] text-white">
+              LEGENDS.
+            </h1>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7.5xl font-black leading-[0.9] text-[var(--accent-1)] my-2 filter drop-shadow-[0_0_15px_rgba(207,242,39,0.3)]">
+              STYLE.
+            </h1>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7.5xl font-black leading-[0.9] text-white">
+              YOU.
+            </h1>
+          </motion.div>
+
+          {/* List of Main categories */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.35em] text-zinc-400 font-black uppercase mt-8"
+          >
+            CLOTHES | SHOES | ACCESSORIES | WATCHES
+          </motion.p>
+
+          {/* Shop Now Button Pill */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.15 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="mt-8 z-30"
           >
             <Link
               href="/shop"
-              className="inline-flex items-center space-x-3 bg-white text-black px-8 py-4 uppercase tracking-widest text-sm font-semibold hover:scale-105 hover:bg-gradient-to-r hover:from-[var(--accent-1)] hover:to-[var(--accent-2)] hover:text-white transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.3)] rounded-sm"
+              className="inline-flex items-center space-x-3 bg-[var(--accent-1)] text-black px-8 py-3.5 uppercase tracking-widest text-xs font-black hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 shadow-[0_10px_30px_rgba(207,242,39,0.25)] rounded-full"
             >
-              <span>Shop Collection</span>
+              <span>SHOP NOW</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>
 
-        {/* Slide Controls */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex space-x-4">
-          {heroSlides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentSlide(idx)}
-              className={`h-1 transition-all duration-300 rounded-full ${currentSlide === idx ? "w-12 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-3)] shadow-[0_0_10px_var(--accent-1)]" : "w-6 bg-white/40 hover:bg-white/70"}`}
-            />
-          ))}
-        </div>
-        
-        <button onClick={prevSlide} className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/20 backdrop-blur-md rounded-full text-white/70 hover:text-[var(--accent-3)] hover:scale-110 transition-all hidden md:block border border-white/10 hover:border-[var(--accent-3)]">
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <button onClick={nextSlide} className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/20 backdrop-blur-md rounded-full text-white/70 hover:text-[var(--accent-3)] hover:scale-110 transition-all hidden md:block border border-white/10 hover:border-[var(--accent-3)]">
-          <ChevronRight className="w-6 h-6" />
-        </button>
-      </section>
-
-      {/* Brand Intro */}
-      <section className="py-24 bg-black relative">
+        {/* RIGHT PROFILE: Ronaldo Banner */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.4 }}
-          className="container mx-auto px-4 md:px-8 max-w-4xl text-center"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative w-full lg:w-[30%] h-[400px] lg:h-full flex flex-col justify-end pb-8 lg:pb-16 z-10 order-3 flex-grow lg:flex-grow-0"
         >
-          <p className="text-xl md:text-4xl text-gray-300 leading-relaxed font-light">
-            We are OUTLAW STYLING STUDIO. A modern fashion sanctuary blending <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] font-bold italic animate-gradient-x">luxury aesthetics</span> with streetwear sensibility. Discover hand-picked premium apparel that speaks louder than words.
-          </p>
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/ronaldo_hero.jpg"
+              alt="Cristiano Ronaldo Outlaw Banner"
+              fill
+              className="object-cover object-top opacity-50 grayscale hover:grayscale-0 hover:opacity-75 transition-all duration-700 rounded-2xl lg:rounded-none"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/20 to-black hidden lg:block" />
+          </div>
+          
+          <div className="relative z-10 px-4 md:px-6 lg:text-right">
+            <h3 className="font-serif text-4xl xl:text-5xl text-[var(--accent-1)] tracking-widest skew-x-[-10deg] uppercase drop-shadow-lg">
+              RONALDO
+            </h3>
+            <p className="text-[10px] md:text-xs tracking-[0.3em] text-zinc-400 font-extrabold mt-1">
+              DISCIPLINE. DRIVE. GREATNESS.
+            </p>
+          </div>
         </motion.div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-24 bg-zinc-950 relative overflow-hidden">
-        {/* Subtle background blob */}
-        <div className="ambient-blob w-[500px] h-[500px] bg-[var(--accent-2)] top-[-20%] left-[-20%] opacity-10" />
-
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
+      {/* Categories Row (Exact Order: Watches, Shoes, Clothes, Accessories) */}
+      <section className="py-20 px-4 md:px-8 bg-black relative border-b border-white/5">
+        <div className="container mx-auto">
+          
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex justify-between items-end mb-12 border-b border-zinc-800 pb-6"
+            className="flex flex-col items-center mb-12"
           >
-            <h2 className="heading-luxury text-3xl md:text-4xl text-white flex items-center space-x-3">
-              <span className="w-2 h-8 bg-[var(--accent-1)] block"></span>
-              <span>NEW ARRIVALS</span>
+            <h2 className="text-2xl md:text-3xl font-black uppercase tracking-widest text-center flex items-center gap-2">
+              <Zap className="w-5 h-5 text-[var(--accent-1)]" />
+              EXPLORE CATEGORIES
             </h2>
-            <Link href="/shop" className="text-sm uppercase tracking-widest hover:text-[var(--accent-1)] transition-colors hidden md:block text-gray-400">
-              View All
+            <div className="h-1 w-20 bg-[var(--accent-1)] mt-3 rounded-full" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categoryCards.map((category, index) => (
+              <motion.div
+                key={category.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <Link 
+                  href={category.href}
+                  className="group relative flex flex-col h-[320px] bg-[#070707] border border-white/5 rounded-2xl overflow-hidden hover:border-[var(--accent-1)] hover:shadow-[0_0_25px_rgba(207,242,39,0.15)] transition-all duration-500 cursor-pointer"
+                >
+                  {/* Category Image */}
+                  <div className="absolute inset-0 z-0">
+                    <Image
+                      src={category.image}
+                      alt={category.name}
+                      fill
+                      className="object-cover opacity-30 group-hover:opacity-60 group-hover:scale-115 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                  </div>
+
+                  {/* Category Label */}
+                  <div className="relative z-10 mt-auto p-6 flex flex-col">
+                    <span className="text-[9px] font-black tracking-widest text-zinc-500 group-hover:text-[var(--accent-1)] transition-colors">
+                      {category.subtext}
+                    </span>
+                    <h3 className="font-serif text-3xl text-white tracking-widest skew-x-[-8deg] uppercase mt-1">
+                      {category.name}
+                    </h3>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-white mt-4 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      EXPLORE NOW 
+                      <ArrowRight className="w-3.5 h-3.5 text-[var(--accent-1)]" />
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trending Now Section */}
+      <section className="py-24 px-4 md:px-8 bg-zinc-950 relative overflow-hidden">
+        
+        {/* Glow Blobs */}
+        <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-[rgba(207,242,39,0.03)] rounded-full filter blur-[100px] pointer-events-none" />
+
+        <div className="container mx-auto">
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex justify-between items-center mb-12 pb-4 border-b border-white/5"
+          >
+            <h2 className="text-xl md:text-2xl font-black tracking-wider uppercase flex items-center gap-2.5">
+              <Flame className="w-5 h-5 text-[var(--accent-1)] animate-pulse" />
+              TRENDING NOW
+            </h2>
+            <Link 
+              href="/shop" 
+              className="text-xs font-black tracking-widest text-zinc-400 hover:text-[var(--accent-1)] uppercase transition-colors flex items-center gap-1.5"
+            >
+              VIEW ALL 
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </motion.div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-            {featuredProducts.map((product) => (
+          {/* Trending Products Grid (6 Items) */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+            {trendingProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <div className="mt-12 text-center md:hidden">
-            <Link href="/shop" className="text-sm uppercase tracking-widest hover:text-[var(--accent-1)] transition-colors border-b border-zinc-800 pb-1 text-gray-400">
-              View All
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Collections Showcase */}
-      <section className="py-24 bg-black relative">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {collections.map((collection, index) => (
-              <Link 
-                key={collection.id} 
-                href="/collections"
-                className={`group relative overflow-hidden bg-zinc-900 ${
-                  index === 0 ? "md:col-span-2 md:row-span-2 h-[500px] md:h-auto" : "h-[400px] md:h-[350px]"
-                }`}
-              >
-                <Image
-                  src={collection.image}
-                  alt={collection.name}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105 opacity-70 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <h3 className="heading-luxury text-2xl md:text-4xl text-white mb-3 tracking-wide">{collection.name}</h3>
-                  <span className="text-sm uppercase tracking-widest text-gray-300 flex items-center space-x-2 group-hover:text-white transition-luxury">
-                    <span>Explore</span>
-                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-2 transition-transform" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Value Proposition */}
-      <section className="py-20 bg-zinc-900 border-t border-b border-zinc-800">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-zinc-800">
-            <div className="py-4 md:py-0">
-              <h4 className="heading-luxury text-xl mb-4 text-white">Pan India Free Shipping</h4>
-              <p className="text-gray-400 text-sm leading-relaxed px-4">We deliver your premium streetwear anywhere in India, completely free of charge.</p>
+      {/* Premium Brand Pillars */}
+      <section className="py-20 px-4 md:px-8 bg-[#030303] border-t border-white/5">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/5">
+            <div className="py-6 md:py-0 flex flex-col items-center">
+              <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-4 text-[var(--accent-1)] shadow-lg">
+                <Truck className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-black uppercase tracking-wider mb-2 text-white">PAN INDIA FREE SHIPPING</h4>
+              <p className="text-zinc-400 text-xs leading-relaxed max-w-xs px-2">Premium styling delivered directly to your doorstep anywhere in India at zero delivery cost.</p>
             </div>
-            <div className="pt-8 md:pt-0">
-              <h4 className="heading-luxury text-xl mb-4 text-white">Cash on Delivery</h4>
-              <p className="text-gray-400 text-sm leading-relaxed px-4">Pay when you receive your order. Hassle-free shopping experience tailored for you.</p>
+            <div className="py-6 md:py-0 flex flex-col items-center">
+              <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-4 text-[var(--accent-1)] shadow-lg">
+                <Award className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-black uppercase tracking-wider mb-2 text-white">CASH ON DELIVERY</h4>
+              <p className="text-zinc-400 text-xs leading-relaxed max-w-xs px-2">Shop securely with Cash On Delivery options available. Pay only when you inspect the parcel.</p>
             </div>
-            <div className="pt-8 md:pt-0">
-              <h4 className="heading-luxury text-xl mb-4 text-white">Premium Quality</h4>
-              <p className="text-gray-400 text-sm leading-relaxed px-4">Export surplus apparel meticulously inspected to ensure luxury standard quality.</p>
+            <div className="py-6 md:py-0 flex flex-col items-center">
+              <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-4 text-[var(--accent-1)] shadow-lg">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-black uppercase tracking-wider mb-2 text-white">PREMIUM ASSURANCE</h4>
+              <p className="text-zinc-400 text-xs leading-relaxed max-w-xs px-2">Authentic export surplus items vetted and curated under strict quality controls for premium style.</p>
             </div>
           </div>
         </div>

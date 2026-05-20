@@ -2,51 +2,72 @@
 
 import { collections } from "@/data/products";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Collections() {
   return (
-    <div className="pt-24 pb-24 bg-black min-h-screen">
-      <div className="container mx-auto px-4 md:px-8 text-center mb-16">
-        <h1 className="heading-luxury text-4xl md:text-5xl mb-4 text-white">CURATED COLLECTIONS</h1>
-        <p className="text-gray-400 text-sm tracking-widest uppercase">Explore our exclusive edits</p>
+    <div className="pt-16 pb-24 bg-black min-h-screen text-white">
+      {/* Header Banner */}
+      <div className="bg-[#030303] border-b border-white/5 py-16 mb-16 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[200px] bg-[rgba(207,242,39,0.03)] rounded-full filter blur-[100px] pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
+          <h1 className="text-3xl md:text-5xl font-black tracking-widest uppercase mb-4 flex items-center justify-center gap-2">
+            <Zap className="w-6 h-6 text-[var(--accent-1)]" />
+            CURATED COLLECTIONS
+          </h1>
+          <p className="text-zinc-500 text-xs md:text-sm tracking-[0.25em] uppercase font-bold">
+            OUTLAW STYLING STORE &bull; EXCLUSIVE EDITS
+          </p>
+        </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="flex flex-col space-y-8 md:space-y-16">
+      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+        <div className="flex flex-col space-y-16 md:space-y-28">
           {collections.map((collection, index) => (
-            <div 
-              key={collection.id} 
-              className={`flex flex-col md:flex-row gap-8 items-center ${
-                index % 2 !== 0 ? "md:flex-row-reverse" : ""
+            <motion.div 
+              key={collection.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${
+                index % 2 !== 0 ? "lg:flex-row-reverse" : ""
               }`}
             >
-              <div className="w-full md:w-2/3 h-[500px] md:h-[700px] relative overflow-hidden bg-zinc-900 group rounded-md shadow-xl">
+              {/* Collection Image */}
+              <div className="w-full lg:w-3/5 aspect-[4/3] relative overflow-hidden bg-zinc-950 group rounded-2xl border border-white/10 shadow-2xl">
                 <Image
                   src={collection.image}
                   alt={collection.name}
                   fill
-                  sizes="(max-width: 768px) 100vw, 66vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105 opacity-80"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-85"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
               </div>
-              <div className="w-full md:w-1/3 flex flex-col justify-center px-4 md:px-12 text-center md:text-left">
-                <span className="text-gray-500 uppercase tracking-[0.2em] text-xs mb-4">Collection {index + 1}</span>
-                <h2 className="heading-luxury text-4xl md:text-5xl text-white mb-6 uppercase">{collection.name}</h2>
-                <p className="text-gray-400 font-light leading-relaxed mb-8">
-                  Discover the essence of modern luxury streetwear through our exclusive {collection.name.toLowerCase()} edit. 
-                  Designed for those who lead, not follow.
+
+              {/* Collection Details */}
+              <div className="w-full lg:w-2/5 flex flex-col justify-center text-center lg:text-left px-4">
+                <span className="text-[var(--accent-1)] uppercase tracking-[0.25em] text-[10px] font-black mb-3">
+                  COLLECTION #0{index + 1}
+                </span>
+                <h2 className="font-serif text-4xl text-white mb-6 uppercase tracking-wider skew-x-[-8deg]">
+                  {collection.name}
+                </h2>
+                <p className="text-zinc-400 font-medium leading-relaxed mb-8 text-xs md:text-sm">
+                  {collection.description} Redefining the standard of premium styling through our curated {collection.name.toLowerCase()} capsule. Tailored for individuals who make their own rules.
                 </p>
                 <Link
-                  href="/shop"
-                  className="inline-flex items-center space-x-3 text-white uppercase tracking-widest text-sm font-semibold hover:text-gray-400 transition-luxury mx-auto md:mx-0 border-b border-white pb-1 w-fit"
+                  href={`/shop?category=${collection.name}`}
+                  className="inline-flex items-center space-x-3 text-black bg-[var(--accent-1)] hover:bg-white hover:text-black transition-all px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg mx-auto lg:mx-0 w-fit"
                 >
-                  <span>Explore Collection</span>
+                  <span>Explore Edit</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

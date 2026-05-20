@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Permanent+Marker&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --accent-1: #FF3366;
-  --accent-2: #7C3AED;
-  --accent-3: #06B6D4;
+  --accent-1: #CFF227;
+  --accent-2: #a3e635;
+  --accent-3: #ffffff;
+  --font-inter: 'Inter', sans-serif;
+  --font-permanent-marker: 'Permanent Marker', cursive;
 }
 
 @theme inline {
@@ -20,7 +23,8 @@
   --color-white: #ffffff;
   
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --font-serif: var(--font-permanent-marker);
+  --font-brush: var(--font-permanent-marker);
 }
 
 body {
@@ -33,8 +37,8 @@ body {
 }
 
 ::selection {
-  background-color: var(--accent-2);
-  color: #fff;
+  background-color: var(--accent-1);
+  color: #000000;
 }
 
 /* Scrollbar */
@@ -45,7 +49,7 @@ body {
   background: #000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #222;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -94,7 +98,7 @@ body {
 
 .text-outline:hover {
   -webkit-text-stroke: 1px var(--accent-1);
-  color: rgba(255, 51, 102, 0.1);
+  color: rgba(207, 242, 39, 0.1);
   transition: all 0.3s ease;
 }
 
@@ -102,7 +106,7 @@ body {
 .ambient-blob {
   position: absolute;
   filter: blur(100px);
-  opacity: 0.4;
+  opacity: 0.2;
   border-radius: 50%;
   z-index: 0;
   animation: float 10s ease-in-out infinite alternate;
@@ -111,4 +115,48 @@ body {
 @keyframes float {
   0% { transform: translate(0, 0) scale(1); }
   100% { transform: translate(30px, 50px) scale(1.1); }
+}
+
+/* Custom Outlaw Utilities */
+.font-brush {
+  font-family: var(--font-brush), cursive;
+}
+
+.neon-glow {
+  text-shadow: 0 0 10px rgba(207, 242, 39, 0.4), 0 0 20px rgba(207, 242, 39, 0.2);
+}
+
+.border-neon {
+  border-color: rgba(207, 242, 39, 0.2);
+  transition: all 0.3s ease;
+}
+
+.border-neon:hover {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 15px rgba(207, 242, 39, 0.25);
+}
+
+.circle-revolve {
+  animation: rotate-circle 40s linear infinite;
+}
+
+@keyframes rotate-circle {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Infinite scrolling marquee for announcement bar */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes marquee2 {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0%); }
+}
+.animate-marquee-scroll {
+  animation: marquee 25s linear infinite;
+}
+.animate-marquee-scroll2 {
+  animation: marquee2 25s linear infinite;
 }
